@@ -42,3 +42,31 @@ ul.posts {
 ul.posts li {
     list-style: none;
 }
+
+#player {
+     position: absolute; 
+/*
+     top: 200;
+     left: 200; 
+*/
+     display: none;
+}
+
+button {
+    position: 
+}
+
+#next {
+    width: auto;
+    padding: 4px 12px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+    color: blueviolet;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    
+/*    right: 0;*/
+}
