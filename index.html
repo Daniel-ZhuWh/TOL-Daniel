@@ -1,18 +1,23 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>TOL Website Test</title>
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-		<style>
-		      #content {
-			width: 60%;
-			height: auto;
+		<link rel="stylesheet" type="text/css" href="main.css">
+        <style>
+            #content {
+			width: 900px;
+			height: 700px;
 			margin: auto;
 			display: flex;
 			align-items: center;
-		      }
-		</style>
+            position: absolute; 
+/*
+            top: 200;
+            left: 200;  
+*/
+/*            display: block;*/
+            }
+        </style>
 	</head>
 	<body>
 		<div class="container">
@@ -22,12 +27,22 @@
     		</div>
 		</div>
 		
+        
+        
 		<div id="content">
-		<iframe style="border: none;" width="1440" height="auto" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F73JrRvEKKTBj4CHueFPDdV%2FTOL%3Fnode-id%3D14%253A99%26scaling%3Dscale-down-width" allowfullscreen></iframe>
+		<iframe style="border: none;" width="900" height="700" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F73JrRvEKKTBj4CHueFPDdV%2FTOL%3Fnode-id%3D0%253A2%26scaling%3Dscale-down-width" allowfullscreen></iframe>
+            <a id="next">
+                Learn how it works
+            </a>
 		</div>	
+        
+        
 		
 		<div id="player"></div>
-
+        
+        
+        
+        <script src="jquery-3.4.1.min.js"></script>
 		    <script>
 		      // 2. This code loads the IFrame Player API code asynchronously.
 		      var tag = document.createElement('script');
@@ -44,16 +59,22 @@
 			  height: '390',
 			  width: '640',
 			  videoId: 'M7lc1UVf-VE',
+              playerVars: {'autoplay': 0, 'wmode': 'transparent', 'fs': 0, 'controls':1, 'rel':0, 'modestbranding':1, 'showinfo':0},
 			  events: {
 			    'onReady': onPlayerReady,
 			    'onStateChange': onPlayerStateChange
 			  }
 			});
+              document.getElementById('player').style['z-index']=-10;
+              document.getElementById('player').style['-webkit-transform']='translateZ(0)';
 		      }
 
 		      // 4. The API will call this function when the video player is ready.
 		      function onPlayerReady(event) {
-			event.target.playVideo();
+			//event.target.playVideo();
+//                  player.loadVideoById({videoId:'M7lc1UVf-VE',
+//                      startSeconds:0,
+//                      endSeconds:1})
 		      }
 
 		      // 5. The API calls this function when the player's state changes.
@@ -61,73 +82,40 @@
 		      //    the player should play for six seconds and then stop.
 		      var done = false;
 		      function onPlayerStateChange(event) {
-			if (event.data == YT.PlayerState.PLAYING && !done) {
-			  setTimeout(stopVideo, 6000);
-			  done = true;
-			}
+			//if (event.data == YT.PlayerState.PLAYING && !done) {
+			  //setTimeout(stopVideo, 6000);
+			  //done = true;
+              
+			//}
+              if (event.data == YT.PlayerState.PLAYING){
+                  setTimeout( function (){
+                      player.pauseVideo();
+                      $(content).fadeIn();
+                  }, 3000)
+              }
 		      }
-		      function stopVideo() {
-			player.stopVideo();
+		      function playVideo() {
+			player.playVideo();
 		      }
+            
+              
+                
+              $(document).ready(function(){
+                  $('#next').click( function(){
+                  $('#content').hide();
+                  $('#player').show();
+                  playVideo();
+              })
+              })
 		    </script>
+        
+<!--
 		<footer>
     		<ul>
         		<li><a href="https://canvas.cmu.edu/courses/13466/assignments/211433">Project Requirements</a></li>
         		<li><a href="https://github.com/hankquinlan">github.com/daniel-zhuwh</a></li>
 			</ul>
 		</footer>
+-->
 	</body>
 </html>
-
-<!--
-<!DOCTYPE html>
-<html>
-  <body>
-    <!~~ 1. The <iframe> (and video player) will replace this <div> tag. ~~>
-    <div id="player"></div>
-
-    <script>
-      // 2. This code loads the IFrame Player API code asynchronously.
-      var tag = document.createElement('script');
-
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      // 3. This function creates an <iframe> (and YouTube player)
-      //    after the API code downloads.
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-          height: '390',
-          width: '640',
-          videoId: 'M7lc1UVf-VE',
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-      }
-
-      // 4. The API will call this function when the video player is ready.
-      function onPlayerReady(event) {
-        event.target.playVideo();
-      }
-
-      // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
-      var done = false;
-      function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
-          done = true;
-        }
-      }
-      function stopVideo() {
-        player.stopVideo();
-      }
-    </script>
-  </body>
-</html>
--->
