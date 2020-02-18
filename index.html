@@ -46,7 +46,7 @@
 		
 		<div id="player"></div>
         
-        
+        <img id="cong" src='congratulations.png' style="width:900px;height:750px;display:none"/>
         
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 		    <script>
@@ -88,6 +88,10 @@
 		      //    the player should play for six seconds and then stop.
 		      var done = false;
 		      function onPlayerStateChange(event) {
+                  if (event.data == YT.PlayerState.ENDED) {
+                      $('#player').fadeOut();
+                      $('#cong').fadeIn();
+                  }
 			//if (event.data == YT.PlayerState.PLAYING && !done) {
 			  //setTimeout(stopVideo, 6000);
 			  //done = true;
@@ -121,9 +125,11 @@
 		    </script>
             
 
+
         </div>
 <!--        </main>-->
-		  <footer>
+        
+                  <footer>
 <!--
     		<ul>
         		<li><a href="https://canvas.cmu.edu/courses/13466/assignments/211433">Project Requirements</a></li>
